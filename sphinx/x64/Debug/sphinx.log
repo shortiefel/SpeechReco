@@ -1,0 +1,4 @@
+﻿  Active code page: 65001
+  test.cpp
+test.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+  sphinx.vcxproj -> C:\cmuSphinx\sphinx\x64\Debug\sphinx.exe

@@ -1,0 +1,8 @@
+﻿  Active code page: 65001
+  test.cpp
+  Generating code
+  1 of 117 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  sphinx.vcxproj -> C:\cmuSphinx\sphinx\x64\Release\sphinx.exe
