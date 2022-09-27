@@ -78,7 +78,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\tanwe\OneDrive\Desktop\SpeechReco\Sphinx\pocketsphinx\include;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\Sphinx\sphinxbase\include;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\Sphinx\sphinxbase\include\win32;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\Sphinx\sphinxbase\include\sphinxbase;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\tanwe\OneDrive\Desktop\SpeechReco\dependencies\Sphinx\pocketsphinx\include;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\dependencies\Sphinx\sphinxbase\include\sphinxbase;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\dependencies\Sphinx\sphinxbase\include\win32;C:\Users\tanwe\OneDrive\Desktop\SpeechReco\dependencies\Sphinx\sphinxbase\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)..\bin$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\bin-int\$(Platform)\$(Configuration)\</IntDir>
+    <LibraryPath>C:\Users\tanwe\OneDrive\Desktop\SpeechReco\dependencies\Sphinx\pocketsphinx\bin\Debug\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
