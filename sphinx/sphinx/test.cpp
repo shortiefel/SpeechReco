@@ -47,14 +47,14 @@ std::string recognize_from_microphone()
 
 void Listen()
 {
-    int numIterations = 0;
-    while (numIterations < 20)
+    //int numIterations = 0;
+    while (1)
     {
         std::cout << "Listening...\n";
         //capture and decode speech from microphone
         std::string decoded_speech = recognize_from_microphone();         
         std::cout << "Decoded Speech: " << decoded_speech << "\n" << std::endl;
-        ++numIterations;
+        //++numIterations;
     }
 
 }
@@ -67,11 +67,11 @@ int main(int argc, char* argv[])
 
     pConfig = cmd_ln_init(NULL, ps_args(), TRUE,
         "-hmm", MODELDIR,
-        //"-lm", "../../model/etc/demo.lm",
         "-dict", "../../model/etc/demo.dic",
         "-kws", "../../model/keywords.list",
         "-remove_noise", "yes",
         "-remove_silence", "yes",
+
         NULL);
     if (pConfig == NULL) {
         fprintf(stderr, "Failed to create config object, see log for details\n");
