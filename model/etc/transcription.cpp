@@ -6,7 +6,7 @@ int main()
 {
     std::fstream fs;
     fs.open("transcriptiontest.txt", std::ios::out);
-    for (int i = 1; i < 76 ; ++i)
+    for (int i = 1; i < 91 ; ++i)
     {
         //for each speaker
         for (int j=1; j < 4 ; ++j)
@@ -31,7 +31,7 @@ int main()
 
     std::fstream nfs;
     nfs.open("fileidtest.txt", std::ios::out);
-    for (int i = 1; i < 76 ; ++i)
+    for (int i = 1; i < 91 ; ++i)
     {
         //for each speaker
         //speaker_i/i_0j
