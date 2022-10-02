@@ -1,22 +1,38 @@
+/* Start Header**********************************************************************************/
+/*
+\File					    test.cpp
+\Author					    Lee Yu TIng
+                            Tan Wei Ling Felicia
+\DP email				    yuting.lee@digipen.edu
+                            weilingfelicia.tan@digipen.edu
+\Date						27/09/2022
+\Brief						This file contains the implementation for speech recognition.
+
+Listens continously for mic input and decodes continuously for 100 times. Decoded words 
+will be printed to console. Speech recognition will stop running when console is closed. If 
+computer has no mic, application will close.
+
+Copyright (C) 2022 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents
+without the prior written consent of DigiPen Institute of
+Technology is prohibited.
+*/
+/* End Header **********************************************************************************/
 #include <pocketsphinx.h>
 #include <ad.h>
 #include <string>
 #include <iostream>
-#include <thread>
-#include "windows.h"
-#include <mutex>
 
 
-#define MODELDIR "../../model/model_parameters/demo.ci_cont"
+#define MODELDIR "model/model_parameters/demo.ci_cont"
 
 ps_decoder_t* pPs;
 cmd_ln_t* pConfig;
 ad_rec_t* pAd;
-int16 adbuf[4096];                                              // buffer array to hold audio data
+int16 adbuf[4096];                                                  // buffer array to hold audio data
 uint8 utt_started;                                                  //flag checking if speech has started
 uint8 in_speech;                                                    //flag checking if still in speech
 int32 numADframes;                                                  // holds the number of frames in the audio buffer
-
 
 std::string recognize_from_microphone()
 {
@@ -47,30 +63,37 @@ std::string recognize_from_microphone()
 
 void Listen()
 {
-    //int numIterations = 0;
-    while (1)
+    int numIterations = 0;
+    //will decode 100 times before closing
+    while (numIterations < 101)
     {
         std::cout << "Listening...\n";
         //capture and decode speech from microphone
-        std::string decoded_speech = recognize_from_microphone();         
-        std::cout << "Decoded Speech: " << decoded_speech << "\n" << std::endl;
-        //++numIterations;
+        std::string decoded_speech = recognize_from_microphone();
+        if (numIterations != 0)
+        {
+            std::cout << "Decoded Speech: " << decoded_speech << "\n" << std::endl;
+        }
+        else //first decoding is always inaccurate, need to try again
+        {
+            std::cout << "Please try again\n";
+        }
+        ++numIterations;
     }
 
 }
-int main(int argc, char* argv[])
+int main()
 {
 #ifdef _DEBUG
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-
     pConfig = cmd_ln_init(NULL, ps_args(), TRUE,
         "-hmm", MODELDIR,
-        "-dict", "../../model/etc/demo.dic",
-        "-kws", "../../model/keywords.list",
+        "-dict", "model/etc/demo.dic",
+        "-kws", "model/keywords.list",
         "-remove_noise", "yes",
-        "-remove_silence", "yes",
+        //"-remove_silence", "yes",
 
         NULL);
     if (pConfig == NULL) {
@@ -87,6 +110,13 @@ int main(int argc, char* argv[])
 
     // open default microphone at default samplerate
     pAd = ad_open_dev("sysdefault", (int)cmd_ln_float32_r(pConfig, "-samprate"));
+    //if computer has no mic, will exit
+    if (pAd == NULL) 
+    {
+        ps_free(pPs);
+        cmd_ln_free_r(pConfig);
+        return 0;
+    }
     
 
     Listen();
@@ -94,7 +124,7 @@ int main(int argc, char* argv[])
     //close mic and decoder
     ad_close(pAd);
     ps_free(pPs);
-    cmd_ln_free_r(pConfig);
+    cmd_ln_free_r(pConfig); 
 
     return 0;
 }
